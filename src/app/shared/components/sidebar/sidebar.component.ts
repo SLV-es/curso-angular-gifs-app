@@ -18,4 +18,8 @@ export class SidebarComponent {
     this.gifsService.tagSearch( tag );
   }
 
+  public onDeleteTag( tag: string ): void {
+    this.gifsService.tagDelete( tag );
+  }
+
 }

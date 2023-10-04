@@ -3,13 +3,17 @@
   <hr class="text-white">
 
   <div class="list-group list-reset">
-
-      <button
-        *ngFor="let tag of tagList"
-        class="list-group-item list-group-item-action"
+    <div *ngFor="let tag of tagList" class="mb-2">
+      <button style="width: 75%;float: left;"
+        class="list-group-item list-group-item-action me-2"
         (click)="reloadTag( tag )">
         {{ tag | titlecase }}
       </button>
-
+      <button style="width: 20%;float: right;"
+        (click)="onDeleteTag( tag )"
+        class="btn btn-danger">
+        X
+      </button>
+    </div>
   </div>
 </div>

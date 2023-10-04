@@ -13,7 +13,6 @@ export class GifsService {
 
   constructor( private http: HttpClient ) {
     this.loadLocalStorage();
-    if ( this._tagsHistory.length>0 ) this.tagSearch( this._tagsHistory[0] ) ;
    }
 
   get tagsHistory() {
@@ -37,6 +36,7 @@ export class GifsService {
   private loadLocalStorage(): void {
     if ( !localStorage.getItem('history') ) return;
     this._tagsHistory = JSON.parse( localStorage.getItem('history')! );
+    if ( this._tagsHistory.length>0 ) this.tagSearch( this._tagsHistory[0] );
   }
 
   tagSearch( tag: string): void {
@@ -55,6 +55,15 @@ export class GifsService {
         // console.log({ gifs: this.gifList });
       }) ;
 
+  }
+
+  tagDelete( tag: string ): void {
+
+    let nextTag: number = this._tagsHistory.findIndex( item => item === tag);
+    this._tagsHistory = this._tagsHistory.filter( item => item !== tag );
+    this.saveLocalStorage();
+    if ( nextTag > this._tagsHistory.length ) nextTag = this._tagsHistory.length;
+    if ( nextTag >= 0 ) this.tagSearch( this._tagsHistory[nextTag] );
   }
 
 }
